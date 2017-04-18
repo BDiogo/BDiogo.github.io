@@ -30,13 +30,22 @@ This script uses the jQuery and [opentype.js](http://opentype.js.org/), witch al
 | Name          | Default             | Type      | Description                                                          |
 |---------------|---------------------|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | FontSize     | `100`            | `number`            | Defines size o font to draw.     |
-| mode     | `equal`            | `string`            | Defines what mode each letter will be stretched: `random` ,`equal` ,`firstLetter` ,`lastLetter` ,`chosenLetter` and `deform`. |
+| mode     | `equal`            | `string`            | Defines what mode each letter will be stretched: `random`,`equal` ,`firstLetter` ,`lastLetter` ,`chosenLetter` and `deform`. |
 | chosenLetter     | `null`            | `array`            | Defines witch letter will be stretched, in mode `chosenLetter`.|
 | canvasID     | `null`            | `string`            | Link to canvas to draw.    |
 | canvasWidth     | `100`            | `number`            | Indicates the size canvas.     |
 | canvasWidthMode     | `percentage`            | `string`            | Indicates the type of meausure of canvas width,`percentage` or `pixels`.    |
-| canvasWidth     | `100`            | `number`            | Indicates the size canvas.     |
+| color     | `black`            | `string`            | Color to fill font.     |
+| stroke     | `transparent`            | `string`            | Indicates the stroke color. |
+| strokeWidth     | `0`            | `number`            | Indicates the stroke width. |
+| animateonEnter     | `false`            | `boolean`            | Animate font stretch, when window is loaded. |
+| start     | `max`            | `string`            | Where the stretch will start, with its `max` value or `min`. |
 
+
+## Methods
+### Get
+### Change
+### Other
 
 
 
