@@ -91,7 +91,12 @@ Recalculates widths to each letters, according to new size of window and show it
 #### `Pilot.reRandom()`
 Makes a new random for letters, changing its widths. If mode isn't `random` will change it.
 #### `Pilot.animate(velocity, TimeoutVariable, "decrease" or "increase")`
-This function was created purposely for animate de font width. The `velocity`variable indicates how fast the width will descrease or increase. Once the word reaches its maximum, when `increase` and minimum when `decrease` will crear the timeout  specified.
+This function was created purposely for animate de font width. The `velocity`variable indicates how fast the width will descrease or increase. Once the word reaches its maximum, when `increase` and minimum when `decrease` will crear the timeout  specified. Example:
+
+        var timeout= setInterval(function() {
+            pilot.animate(10, timeout , "increase");
+        },30);
+
 #### `Pilot.interpolate()`
 Draws in canvas, given widths for each letter.
 
