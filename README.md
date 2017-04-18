@@ -3,7 +3,7 @@ Pilot is a script that allows any font width, to respond to the window size. For
 
 This script uses the jQuery and [opentype.js](http://opentype.js.org/), witch allows to read a font data and change it.
 
-
+# Concepts
 
 # Getting Started
 ### 1. Include JQuery,Opentype.js and Pilot.js
@@ -56,27 +56,38 @@ This script uses the jQuery and [opentype.js](http://opentype.js.org/), witch al
 #### `Pilot.getText()`
 #### `Pilot.getColor()`
 #### `Pilot.getMinWidth()`
+Since the font as a minimum width, so all the word. This function returns the minimum width it needs to fill de windows, given a text to render and a font size.
 #### `Pilot.getTotalIncrease()`
+Gives the diference between the container width as the minimum word string, giving to total increase the font needs to suffer.
 #### `Pilot.getStart()`
 #### `Pilot.getLimit()`
+Since the limit reffers to the percentage (from 0 to 1), of each master font to use. It can return a `number` or an `array`, depending on the mode (equal and deform return `number`, other `array`).
 
 ### Change
 #### `Pilot.changeCanvasWidth(width)`
+Change canvas width to the width specified, when the text doesn't  fit the canvas, will automatically decrease its font size.
 #### `Pilot.changeText(text)`
+Change Text to Render, recalculate widths to each letters and show it on the canvas.
 #### `Pilot.changeColor(text)`
 #### `Pilot.changeLetterSelected(array)`
+Change letters selected for the mode `chosenLetter`.
 #### `Pilot.changeMode(mode)`
 #### `Pilot.changeFontSizeDraw(fontsize)`
+Change font Size and draw on canvas.
 #### `Pilot.changeCanvasWidthSetup()`
-interpolate
 
 
 ### Other
 #### `Pilot.runPilot()`
+Inicializing Pilot.
 #### `Pilot.windowResized()`
+Recalculates widths to each letters, according to new size of window and show it on the canvas.
 #### `Pilot.reRandom()`
-#### `Pilot.animate(vel, TimeoutVariable, "decrease" or "increase")`
+Makes a new random for letters, changing its widths. If mode isn't `random` will change it.
+#### `Pilot.animate(velocity, TimeoutVariable, "decrease" or "increase")`
+This function was created purposely for animate de font width. The `velocity`variable indicates how fast the width will descrease or increase. Once the word reaches its maximum, when `increase` and minimum when `decrease` will crear the timeout  specified.
 #### `Pilot.interpolate()`
+Draws in canvas, given widths for each letter.
 
 
 
