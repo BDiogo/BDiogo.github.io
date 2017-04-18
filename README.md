@@ -5,7 +5,7 @@ This script uses the jQuery and [opentype.js](http://opentype.js.org/), witch al
 
 
 
-## Getting Started
+# Getting Started
 ### 1. Include JQuery,Opentype.js and Pilot.js
 
     <script type="text/javascript" src="js/jquery.min.js"></script> 
@@ -24,8 +24,14 @@ This script uses the jQuery and [opentype.js](http://opentype.js.org/), witch al
           fonte2: 'fonts/nice2.ttf', 
           textToRender: "PILOT", 
           canvasID : "canvas_id" 
+          
+### 4. Run Pilot.
+    font.runPilot();
+    
+    
+    
 
-## Options
+# Options
 ### Parameters
 | Name          | Default             | Type      | Description                                                          |
 |---------------|---------------------|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -42,10 +48,40 @@ This script uses the jQuery and [opentype.js](http://opentype.js.org/), witch al
 | start     | `max`            | `string`            | Where the stretch will start, with its `max` value or `min`. |
 
 
-## Methods
+# Methods
 ### Get
+#### `Pilot.getFontSize()`
+#### `Pilot.getColor()`
+#### `Pilot.getMode()`
+#### `Pilot.getText()`
+#### `Pilot.getColor()`
+#### `Pilot.getMinWidth()`
+#### `Pilot.getTotalIncrease()`
+#### `Pilot.getStart()`
+#### `Pilot.getLimit()`
+
 ### Change
+#### `Pilot.changeCanvasWidth(width)`
+#### `Pilot.changeText(text)`
+#### `Pilot.changeColor(text)`
+#### `Pilot.changeLetterSelected(array)`
+#### `Pilot.changeMode(mode)`
+#### `Pilot.changeFontSizeDraw(fontsize)`
+#### `Pilot.changeCanvasWidthSetup()`
+interpolate
+
+
 ### Other
+#### `Pilot.runPilot()`
+#### `Pilot.windowResized()`
+#### `Pilot.reRandom()`
+#### `Pilot.animate(vel, TimeoutVariable, "decrease" or "increase")`
+#### `Pilot.interpolate()`
 
 
 
+
+
+Planned
+=======
+* Extend variation to height
