@@ -84,4 +84,5 @@ interpolate
 
 Planned
 =======
+* Adapt to long strings, and break line.
 * Extend variation to height
