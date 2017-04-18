@@ -4,6 +4,7 @@ Pilot is a script that allows any font width, to respond to the window size. For
 This script uses the jQuery and [opentype.js](http://opentype.js.org/), witch allows to read a font data and change it.
 
 <img src="https://BDiogo.github.io/pilot/img/image.png" alt="alt text" width="350" >
+
 # About Font
 For de development of this project, was used the typeface Reglo by Sebastien Sanfilippo. More about this font can be found 
 [here](https://www.behance.net/gallery/3594959/Font-Reglo).
