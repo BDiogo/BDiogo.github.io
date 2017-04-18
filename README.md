@@ -49,7 +49,7 @@ This script uses the jQuery and [opentype.js](http://opentype.js.org/), witch al
 
 
 # Methods
-### Get
+## Get
 #### `Pilot.getFontSize()`
 #### `Pilot.getColor()`
 #### `Pilot.getMode()`
@@ -63,7 +63,7 @@ Gives the diference between the container width as the minimum word string, givi
 #### `Pilot.getLimit()`
 Since the limit reffers to the percentage (from 0 to 1), of each master font to use. It can return a `number` or an `array`, depending on the mode (equal and deform return `number`, other `array`).
 
-### Change
+## Change
 #### `Pilot.changeCanvasWidth(width)`
 Change canvas width to the width specified, when the text doesn't  fit the canvas, will automatically decrease its font size.
 #### `Pilot.changeText(text)`
@@ -77,7 +77,7 @@ Change font Size and draw on canvas.
 #### `Pilot.changeCanvasWidthSetup()`
 
 
-### Other
+## Other
 #### `Pilot.runPilot()`
 Inicializing Pilot.
 #### `Pilot.windowResized()`
