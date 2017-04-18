@@ -35,6 +35,7 @@ To carry out the proposed idea, was created a version o Reglo extra large and wa
           fonte2: 'fonts/nice2.ttf', 
           textToRender: "PILOT", 
           canvasID : "canvas_id" 
+    });
           
 ### 4. Run Pilot.
     font.runPilot();
