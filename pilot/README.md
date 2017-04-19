@@ -112,5 +112,6 @@ Draws in canvas, given widths for each letter.
 
 Planned
 =======
-* Adapt to long strings, and break line.
-* Extend variation to height
+- [ ] Adapt to long strings, and break line.
+- [ ] Extend variation small caps of font Reglo
+- [ ] Extend variation to height
