@@ -3,7 +3,7 @@ SuiType is a script that allows any font width, to respond to the window size. F
 SuiType is a project thought inside the master degree in Multimedia and Design, of University of Coimbra.
 
         
-This script uses the jQuery and [opentype.js](http://opentype.js.org/), witch allows to read a font data and change it. Some functions where added to opentype.js, so the stretch would be possible.
+This script uses the jQuery and [opentype.js](http://opentype.js.org/), witch allows to read a font data and change it. Some functions where added to opentype.js, so that its stretch is possible.
 
 <img src="https://BDiogo.github.io/SuiType/img/image2.png" alt="alt text" width="350" >
 
