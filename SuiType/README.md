@@ -92,8 +92,8 @@ Change font Size and draw on canvas.
 
 
 ## Other
-#### `SuiType.runPilot()`
-Inicializing Pilot.
+#### `SuiType.runSuiType()`
+Inicializing SuiType.
 #### `SuiType.windowResized()`
 Recalculates widths to each letters, according to new size of window and show it on the canvas.
 #### `SuiType.reRandom()`
