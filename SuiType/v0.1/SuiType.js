@@ -148,10 +148,10 @@ function SuiType(e){
         if (e.textToRender!==undefined){
             this.textToRender = e.textToRender;
         }else{
-         this.error.push("Text to Render is not defined!");
+           this.error.push("Text to Render is not defined!");
 
-     }
-     if (e.canvasWidthMode!==undefined){
+       }
+       if (e.canvasWidthMode!==undefined){
         if( e.canvasWidthMode=="percentage" || e.canvasWidthMode=="pixels" ){
             this.WidthMode= e.canvasWidthMode;
 
@@ -160,18 +160,20 @@ function SuiType(e){
         }
 
     }else{
-     this.WidthMode="percentage";
+       this.WidthMode="percentage";
 
 
- }
+   }
 
- if (e.canvasID!==undefined){
+   if (e.canvasID!==undefined){
     if($("#"+e.canvasID).is("canvas")){
         this.canvasID= e.canvasID;
         this.canvas = document.getElementById(e.canvasID);
         this.snapCtx = this.canvas.getContext('2d');
         this.width = this.canvas.width;
         this.height =e.fontSize*1.2;
+
+        $("#"+this.canvasID).attr("height",this.height);
         if (e.canvasWidth!==undefined){
             this.canvasWidth= e.canvasWidth;
         }else{
@@ -182,7 +184,7 @@ function SuiType(e){
         this.error.push("The ID of the element, is not a canvas!");
     }
 }else{
- this.error.push("Id of canvas to draw is not defined!");
+   this.error.push("Id of canvas to draw is not defined!");
 
 }
 if (e.animateonEnter!==undefined){
@@ -493,14 +495,14 @@ SuiType.prototype.deform= function(path1) {
             cmd1.x = cmd1.x *this.percentage;
         }
         if (cmd1.type === 'Q' || cmd1.type === 'C') {
-         cmd1.x1 = cmd1.x1*this.percentage;
-     }
-     if (cmd1.type === 'C') {
-         cmd1.x2 = cmd1.x2 *this.percentage;
+           cmd1.x1 = cmd1.x1*this.percentage;
+       }
+       if (cmd1.type === 'C') {
+           cmd1.x2 = cmd1.x2 *this.percentage;
 
-     }
+       }
 
- }
+   }
 
 
 };
@@ -978,8 +980,8 @@ SuiType.prototype.getLimit= function(){
                                     if(glyphs[p].name=="space"){
                                         var s=0;
                                     }else{
-                                       var s = Math.round(Math.random()*n*variable_random);
-                                       if(s>max_letters[p]){
+                                     var s = Math.round(Math.random()*n*variable_random);
+                                     if(s>max_letters[p]){
                                         s=max_letters[p];
                                     }
                                 }
@@ -1077,6 +1079,10 @@ SuiType.prototype.getLimit= function(){
 
 
                     this.fontSize= newfont;
+                    this.height= newfont*1.2;
+                    this.boxHeight=newfont;
+                    $("#"+this.canvasID).attr("height",this.height);
+
                     var min_width =this.getMinWidth();
                     var max_width = f2.checkWords(this.textToRender, 0, this.boxHeight, newfont, this.options);
 
@@ -1098,9 +1104,9 @@ SuiType.prototype.getLimit= function(){
 
                     }else{
                         if(this.mode== "random"){
-                         var variable_random=1-(min_letters.length/100)*1.5;
+                           var variable_random=1-(min_letters.length/100)*1.5;
 
-                         if(p==min_letters.length-1){
+                           if(p==min_letters.length-1){
                             var s=n;
                         }else{
                             if(glyphs[p].name=="space"){
@@ -1332,6 +1338,10 @@ SuiType.prototype.getLimit= function(){
                 var min = min_width;
                 var newfont= (new_max/min_width)*font;
                 this.fontSize= newfont;
+                this.height= newfont*1.2;
+                this.boxHeight=newfont;
+
+                $("#"+this.canvasID).attr("height",this.height);
             }
 
         }
@@ -1348,6 +1358,10 @@ SuiType.prototype.getLimit= function(){
         var min = min_width;
         var newfont= (max_container/min_width)*font;
         this.fontSize= newfont;
+        this.boxHeight=newfont;
+
+        this.height= newfont*1.2;
+        $("#"+this.canvasID).attr("height",this.height);
 
     }else{
         findlimit=1;
@@ -1361,14 +1375,14 @@ SuiType.prototype.getLimit= function(){
 
 //calculation, for given Width get Limit
 SuiType.prototype.getLimit_byWidth= function(width, min_width, m){
-   var result= (width-min_width)/m;
-   return result;
+ var result= (width-min_width)/m;
+ return result;
 
 };
 //calculation, for given Limit get Width
 SuiType.prototype.getWith_byLimit= function(min_width,  limit,m){
-   var result= (m*limit)+min_width;
-   return result;
+ var result= (m*limit)+min_width;
+ return result;
 
 };
 
