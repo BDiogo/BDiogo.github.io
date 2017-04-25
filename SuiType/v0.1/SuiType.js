@@ -1,7 +1,7 @@
 
 //-----------------------------------------
 //-----------------------------------------
-//Inicializing StretchIt
+//Inicializing SuiType
 //-----------------------------------------
 //-----------------------------------------
 
@@ -20,7 +20,7 @@
 //-- button DEFAULT false; 
 //-- animateonEnter DEFAULT false; 
 
-function StretchIt(e){
+function SuiType(e){
     this.max ={};
     this.min ={};
     this.d={};
@@ -148,10 +148,10 @@ function StretchIt(e){
         if (e.textToRender!==undefined){
             this.textToRender = e.textToRender;
         }else{
-           this.error.push("Text to Render is not defined!");
+         this.error.push("Text to Render is not defined!");
 
-       }
-       if (e.canvasWidthMode!==undefined){
+     }
+     if (e.canvasWidthMode!==undefined){
         if( e.canvasWidthMode=="percentage" || e.canvasWidthMode=="pixels" ){
             this.WidthMode= e.canvasWidthMode;
 
@@ -160,18 +160,18 @@ function StretchIt(e){
         }
 
     }else{
-       this.WidthMode="percentage";
+     this.WidthMode="percentage";
 
 
-   }
+ }
 
-   if (e.canvasID!==undefined){
+ if (e.canvasID!==undefined){
     if($("#"+e.canvasID).is("canvas")){
         this.canvasID= e.canvasID;
         this.canvas = document.getElementById(e.canvasID);
         this.snapCtx = this.canvas.getContext('2d');
         this.width = this.canvas.width;
-        this.height =this.canvas.height;
+        this.height =e.fontSize*1.2;
         if (e.canvasWidth!==undefined){
             this.canvasWidth= e.canvasWidth;
         }else{
@@ -182,7 +182,7 @@ function StretchIt(e){
         this.error.push("The ID of the element, is not a canvas!");
     }
 }else{
-   this.error.push("Id of canvas to draw is not defined!");
+ this.error.push("Id of canvas to draw is not defined!");
 
 }
 if (e.animateonEnter!==undefined){
@@ -211,9 +211,22 @@ this.options = {
 setLinks= function(array){
 
 }
-
 //change width of canvas
-StretchIt.prototype.changeCanvasWidth= function(measure){
+SuiType.prototype.changeCanvasWidthDraw= function(measure){
+    var canva= $("#"+this.canvasID);
+    if( this.WidthMode=="percentage"){
+        var width= $( window ).width()*measure/100;
+    }else{
+        var width= measure;
+    }
+    canva.attr("width",width);
+    this.getLimit();
+    this.interpolate();
+
+
+}
+//change width of canvas
+SuiType.prototype.changeCanvasWidth= function(measure){
     var canva= $("#"+this.canvasID);
     if( this.WidthMode=="percentage"){
         var width= $( window ).width()*measure/100;
@@ -225,7 +238,7 @@ StretchIt.prototype.changeCanvasWidth= function(measure){
 
 }
 //change width of canvas setup
-StretchIt.prototype.changeCanvasWidthSetup= function(){
+SuiType.prototype.changeCanvasWidthSetup= function(){
     var canva= $("#"+this.canvasID);
     if( this.WidthMode=="percentage"){
         var width= $( window ).width()*this.canvasWidth/100;
@@ -238,33 +251,25 @@ StretchIt.prototype.changeCanvasWidthSetup= function(){
 
 }
 //change width of get if animate is true
-StretchIt.prototype.getAnimate= function(){
+SuiType.prototype.getAnimate= function(){
     return this.animateonEnter;
 
 }
 
 //change width of get if animate is true
-StretchIt.prototype.getFontSize= function(){
+SuiType.prototype.getFontSize= function(){
     return this.fontSize;
 
 }
 
 //change width of get if animate is true
-StretchIt.prototype.setFontSize= function(size){
+SuiType.prototype.setFontSize= function(size){
     this.fontSize=size;
-    this.boxHeight= size;
-      var canva= $("#"+this.canvasID);
-    if( this.WidthMode=="percentage"){
-        var width= $( window ).width()*measure/100;
-    }else{
-        var width= measure;
-    }
-    canva.attr("width",width);
 
 }
 
 //do animation
-StretchIt.prototype.animate= function(increase, a, animation){
+SuiType.prototype.animate= function(increase, a, animation){
     var min_width =this.getMinWidth();
     if(animation=="increase"){
         this.animateValue+=increase;
@@ -281,38 +286,40 @@ StretchIt.prototype.animate= function(increase, a, animation){
     }
 
 
-    if(this.animateValue<=0){
+    if(this.animateValue<=0 && animation=="decrease"){
+        this.setWithMin();
         this.animateValue=0;
         clearInterval(a);
     }
-    else if(this.animateValue>=max_container){
+    else if(this.animateValue>=max_container && animation=="increase"){
         this.animateValue=max_container-min_width;
         clearInterval(a);
-    }
+    }else{
 
 
-    var percentage_min= (min_width+this.animateValue)/max_container*100;
+        var percentage_min= (min_width+this.animateValue)/max_container*100;
 
-    if(percentage_min>this.canvasWidth){
-        percentage_min=this.canvasWidth;
-        if(this.start=="min"){
-            clearInterval(a);
+        if(percentage_min>this.canvasWidth){
+            percentage_min=this.canvasWidth;
+            if(this.start=="min"){
+                clearInterval(a);
+            }
         }
-    }
-    
 
-    this.changeCanvasWidth(percentage_min);
-    this.windowResized();    
-    var new_width= min_width+x;
-    console.log("increase   "+this.animateValue);
-    console.log("min_width   "+min_width);
-    console.log("max_container   "+max_container);
-    console.log("new_width   "+new_width);
-    console.log("---------------------------   ");
+
+        this.changeCanvasWidth(percentage_min);
+        this.windowResized();    
+        var new_width= min_width+x;
+        //console.log("increase   "+this.animateValue);
+        //console.log("min_width   "+min_width);
+        //console.log("max_container   "+max_container);
+        //console.log("new_width   "+new_width);
+        //console.log("---------------------------   ");
+    }
 };
 
 //do animation
-StretchIt.prototype.getTotalIncrease= function(increase, a){
+SuiType.prototype.getTotalIncrease= function(increase, a){
 
     var min_width =this.getMinWidth();
     if( this.WidthMode=="percentage"){
@@ -327,7 +334,7 @@ StretchIt.prototype.getTotalIncrease= function(increase, a){
     
 };
 
-StretchIt.prototype.setWithMin= function(){
+SuiType.prototype.setWithMin= function(){
     var min_width = this.getMinWidth();
 
     if( this.WidthMode=="percentage"){
@@ -351,14 +358,14 @@ StretchIt.prototype.setWithMin= function(){
 };
 
 //Snap paths to mode deform
-StretchIt.prototype.getMinWidth= function() {
+SuiType.prototype.getMinWidth= function() {
     var min_width = this.font1.checkWords(this.textToRender, 0, this.boxHeight, this.fontSize, this.options);
     return min_width;
 
 
 };
 //Snap paths to mode deform
-StretchIt.prototype.getStart= function() {
+SuiType.prototype.getStart= function() {
     return this.start;
 
 
@@ -366,7 +373,7 @@ StretchIt.prototype.getStart= function() {
 
 
 //load fonts
-StretchIt.prototype.runStretchIt= function(){
+SuiType.prototype.runSuiType= function(){
     var FontResp= this;
     this.changeCanvasWidthSetup();
     
@@ -404,7 +411,7 @@ StretchIt.prototype.runStretchIt= function(){
 
 
 //on fonts loaded
-StretchIt.prototype.onFontLoaded= function(font,x){
+SuiType.prototype.onFontLoaded= function(font,x){
     if( x==1){
 
         this.font1=font;
@@ -426,7 +433,7 @@ StretchIt.prototype.onFontLoaded= function(font,x){
 
     if(this.count_fonts>=2 && this.mode!="deform" ||this.mode=="deform"){
         this.getLimit();
-        if(this.start=="min"){
+        if(this.start=="min" || this.animateonEnter==true){
             this.setWithMin();
         }
         
@@ -435,7 +442,7 @@ StretchIt.prototype.onFontLoaded= function(font,x){
     }
 };
 //error on font loaded
-StretchIt.prototype.showErrorMessage= function(message) {
+SuiType.prototype.showErrorMessage= function(message) {
     var el = document.getElementById('message');
     if (!message || message.trim().length === 0) {
         el.style.display = 'none';
@@ -446,7 +453,7 @@ StretchIt.prototype.showErrorMessage= function(message) {
 };
 
 
-StretchIt.prototype.pathCommandToString= function(cmd) {
+SuiType.prototype.pathCommandToString= function(cmd) {
     var str = '<strong>' + cmd.type + '</strong> ' +
     ((cmd.x !== undefined) ? 'x='+cmd.x+' y='+cmd.y+' ' : '') +
     ((cmd.x1 !== undefined) ? 'x1='+cmd.x1+' y1='+cmd.y1+' ' : '') +
@@ -455,14 +462,14 @@ StretchIt.prototype.pathCommandToString= function(cmd) {
 };
 
 //glyphs form
-StretchIt.prototype.contourToString= function(contour) {
+SuiType.prototype.contourToString= function(contour) {
     return '<pre class="contour">' + contour.map(function(point) {
         return '<span class="' + (point.onCurve ? 'on' : 'off') + 'curve">x=' + point.x + ' y=' + point.y + '</span>';
     }).join('\n') + '</pre>';
 };
 
 //formatUnicode
-StretchIt.prototype.formatUnicode= function(unicode) {
+SuiType.prototype.formatUnicode= function(unicode) {
     unicode = unicode.toString(16);
     if (unicode.length > 4) {
         return ("000000" + unicode.toUpperCase()).substr(-6)
@@ -472,7 +479,7 @@ StretchIt.prototype.formatUnicode= function(unicode) {
 };
 
 //Snap paths to mode deform
-StretchIt.prototype.deform= function(path1) {
+SuiType.prototype.deform= function(path1) {
     var i;
     path1.fill=this.color;
     path1.stroke=this.stroke;
@@ -485,14 +492,14 @@ StretchIt.prototype.deform= function(path1) {
             cmd1.x = cmd1.x *this.percentage;
         }
         if (cmd1.type === 'Q' || cmd1.type === 'C') {
-           cmd1.x1 = cmd1.x1*this.percentage;
-       }
-       if (cmd1.type === 'C') {
-           cmd1.x2 = cmd1.x2 *this.percentage;
+         cmd1.x1 = cmd1.x1*this.percentage;
+     }
+     if (cmd1.type === 'C') {
+         cmd1.x2 = cmd1.x2 *this.percentage;
 
-       }
+     }
 
-   }
+ }
 
 
 };
@@ -500,7 +507,7 @@ StretchIt.prototype.deform= function(path1) {
 
 
 //Snap paths to mode equal
-StretchIt.prototype.doSnap= function(path1, path2) {
+SuiType.prototype.doSnap= function(path1, path2) {
     var i;
     path1.fill=this.color;
     path1.stroke=this.stroke;
@@ -556,7 +563,7 @@ StretchIt.prototype.doSnap= function(path1, path2) {
 }
 };
 //Snap paths for other modes
-StretchIt.prototype.doSnaperLetter= function(p1, p2) {
+SuiType.prototype.doSnaperLetter= function(p1, p2) {
     var glyphs= this.font1.stringToGlyphs(this.textToRender);
     if(this.mode!= "equal" && this.mode!= "deform"){
         var i;
@@ -634,7 +641,7 @@ StretchIt.prototype.doSnaperLetter= function(p1, p2) {
 //--change canvas wisth
 //--recalculate limits for each letter
 //--redraw paths of glyphs
-StretchIt.prototype.windowResized= function(){
+SuiType.prototype.windowResized= function(){
     this.snapCtx = this.canvas.getContext('2d');
     if(this.start="min"){
 
@@ -650,8 +657,7 @@ StretchIt.prototype.windowResized= function(){
 
 };
 
-
-StretchIt.prototype.changeFontSizeDraw= function(size){
+SuiType.prototype.changeFontSizeDraw= function(size){
     this.setFontSize(size);
 
     this.getLimit();
@@ -660,7 +666,7 @@ StretchIt.prototype.changeFontSizeDraw= function(size){
 
 };
 //Draw paths of glyphs
-StretchIt.prototype.interpolate= function(){
+SuiType.prototype.interpolate= function(){
     var snapPath_master1, snapPath_master2;
     var snapPath_master1_array, snapPath_master2_array;
 
@@ -757,7 +763,7 @@ StretchIt.prototype.interpolate= function(){
 };
 
 //DIVIDE string to array of strings, where each fill window width
-StretchIt.prototype.dividString= function(string){
+SuiType.prototype.dividString= function(string){
     var max_container = this.canvas.offsetWidth;
     var splited =string.split(" ");
     var min_width = this.getMinWidth();
@@ -792,7 +798,7 @@ StretchIt.prototype.dividString= function(string){
 };
 
 //recalc percentage for letters
-StretchIt.prototype.getPercentageForLetters= function(){
+SuiType.prototype.getPercentageForLetters= function(){
     var result_percentage= new Array();
     if(this.mode!= "equal" || this.mode!= "deform"){  
         for(var j=0; j<this.limit.length; j++){
@@ -805,7 +811,7 @@ StretchIt.prototype.getPercentageForLetters= function(){
 };
 // Get percentage, given limit
 // if limit inferior to 0, return 0, never less
-StretchIt.prototype.getPercentage= function(value){
+SuiType.prototype.getPercentage= function(value){
     if(this.mode!= "equal" && this.mode!= "deform"){
         var result_percentage= new Array();
         result_percentage= this.limit;
@@ -824,7 +830,7 @@ StretchIt.prototype.getPercentage= function(value){
 
 };
 
-StretchIt.prototype.reRandom= function(){
+SuiType.prototype.reRandom= function(){
     if(this.mode!="random"){
         this.mode="random";
     }
@@ -835,7 +841,7 @@ StretchIt.prototype.reRandom= function(){
     this.interpolate();
 };
 
-StretchIt.prototype.changeMode= function(mode){
+SuiType.prototype.changeMode= function(mode){
     if  (mode=="firstLetter" || mode=="equal" || mode=="random" || mode=="firstLetter" 
         || mode=="lastLetter" || mode=="middleLetter" || mode=="chosenLetter" || mode=="deform" ){
         this.mode=mode;
@@ -847,11 +853,11 @@ StretchIt.prototype.changeMode= function(mode){
 }
 };
 
-StretchIt.prototype.getMode= function(mode){
+SuiType.prototype.getMode= function(mode){
     return this.mode;
 };
 
-StretchIt.prototype.changeText= function(text){
+SuiType.prototype.changeText= function(text){
     this.textToRender=text;
     this.percentage=0;
     this.limit=0;
@@ -860,25 +866,42 @@ StretchIt.prototype.changeText= function(text){
     this.interpolate();
 
 };
-StretchIt.prototype.getText= function(text){
+SuiType.prototype.getText= function(text){
     return this.textToRender;
 
 };
 
-StretchIt.prototype.changeColor= function(color){
+SuiType.prototype.changeStrokeColor= function(color){
+    this.stroke=color;
+    this.interpolate();
+
+};
+SuiType.prototype.getStrokeColor= function(){
+    return this.stroke;
+
+};
+SuiType.prototype.changeStrokeWidth= function(size){
+    this.strokeWidth=size;
+    this.interpolate();
+
+};
+SuiType.prototype.getStrokeWidth= function(){
+    return this.strokeWidth;
+
+};
+SuiType.prototype.changeColor= function(color){
     this.color=color;
     this.interpolate();
 
 };
 
-StretchIt.prototype.getColor= function(color){
+SuiType.prototype.getColor= function(color){
     return this.color;
 
 };
 
-
 //change letters selected in mode chosen letters
-StretchIt.prototype.changeLettersSelect= function(l){
+SuiType.prototype.changeLettersSelect= function(l){
     var letters= JSON.parse(l);
     this.chosenLetters=[];
     for(var k=0; k<letters.length; k++){
@@ -894,7 +917,7 @@ StretchIt.prototype.changeLettersSelect= function(l){
 
 // Calculate limit (percentage of each master),acording to the max container width.
 // If the mode is deform, the limit indicates the percentage o width each letter fills.
-StretchIt.prototype.getLimit= function(){
+SuiType.prototype.getLimit= function(){
     var f1 = this.font1;
     var margin=0;
     var max_container = this.canvas.offsetWidth;
@@ -954,116 +977,115 @@ StretchIt.prototype.getLimit= function(){
                                     if(glyphs[p].name=="space"){
                                         var s=0;
                                     }else{
-                                         var s = Math.round(Math.random()*n*variable_random);
-                                         if(s>max_letters[p]){
-                                            s=max_letters[p];
-                                        }
+                                       var s = Math.round(Math.random()*n*variable_random);
+                                       if(s>max_letters[p]){
+                                        s=max_letters[p];
                                     }
                                 }
-                                size.push(s+min_letters[p]);
-                                n -= s;
+                            }
+                            size.push(s+min_letters[p]);
+                            n -= s;
 
-                                var letter_width= (s+min_letters[p]);
-                                var letter_limit= this.getLimit_byWidth(letter_width, min_letters[p],m2);
-
-
-                                var percentage_overall = letter_width/max_container;
-                                this.percentagaPerLetter.push(percentage_overall);
-
-                            }   
-                            else if(this.mode== "firstLetter"){
-                                if(p==0){
-                                    var letter_width= (n+min_letters[p]);
-
-                                }else{
-                                    var letter_width= (min_letters[p]);
-
-                                }
-                                size.push(letter_width);
+                            var letter_width= (s+min_letters[p]);
+                            var letter_limit= this.getLimit_byWidth(letter_width, min_letters[p],m2);
 
 
-                                var letter_limit= this.getLimit_byWidth(letter_width, min_letters[p],m2);
-                                var percentage_overall = letter_width/max_container;
-                                this.percentagaPerLetter.push(percentage_overall);
+                            var percentage_overall = letter_width/max_container;
+                            this.percentagaPerLetter.push(percentage_overall);
 
+                        }   
+                        else if(this.mode== "firstLetter"){
+                            if(p==0){
+                                var letter_width= (n+min_letters[p]);
+
+                            }else{
+                                var letter_width= (min_letters[p]);
 
                             }
-                            else if(this.mode== "lastLetter"){
-                                if(p==min_letters.length-1){
-                                    var letter_width= (n+min_letters[p]);
-
-                                }else{
-                                    var letter_width= (min_letters[p]);
-
-                                }
-                                size.push(letter_width);
+                            size.push(letter_width);
 
 
-                                var letter_limit= this.getLimit_byWidth(letter_width, min_letters[p],m2);
-                                var percentage_overall = letter_width/max_container;
-                                this.percentagaPerLetter.push(percentage_overall);
+                            var letter_limit= this.getLimit_byWidth(letter_width, min_letters[p],m2);
+                            var percentage_overall = letter_width/max_container;
+                            this.percentagaPerLetter.push(percentage_overall);
 
-                            }
-                            else if(this.mode== "middleLetter"){
-                                var middle= parseInt(min_letters.length/2);
-                                if(p==middle){
-                                    var letter_width= (n+min_letters[p]);
-
-                                }else{
-                                    var letter_width= (min_letters[p]);
-
-                                }
-                                size.push(letter_width);
-
-
-                                var letter_limit= this.getLimit_byWidth(letter_width, min_letters[p],m2);
-                                var percentage_overall = letter_width/max_container;
-                                this.percentagaPerLetter.push(percentage_overall);
-
-                            }
-                            else if(this.mode== "chosenLetter"){
-                                var num_letters= this.chosenLetters.length;
-                                var increase_per_letter=n/num_letters;
-                                var letter_width= 0;
-                                for(var k=0; k<this.chosenLetters.length; k++){
-                                    if(p+1==this.chosenLetters[k]){
-                                        var letter_width= (increase_per_letter+min_letters[p]);
-                                        break;
-                                    }else{
-                                        var letter_width= (min_letters[p]);
-
-                                    }
-                                }
-
-
-                                var letter_limit= this.getLimit_byWidth(letter_width, min_letters[p],m2);
-                                var percentage_overall = letter_width/max_container;
-                                this.percentagaPerLetter.push(percentage_overall);
-
-                            }
 
                         }
-                        limit.push(letter_limit);
+                        else if(this.mode== "lastLetter"){
+                            if(p==min_letters.length-1){
+                                var letter_width= (n+min_letters[p]);
+
+                            }else{
+                                var letter_width= (min_letters[p]);
+
+                            }
+                            size.push(letter_width);
+
+
+                            var letter_limit= this.getLimit_byWidth(letter_width, min_letters[p],m2);
+                            var percentage_overall = letter_width/max_container;
+                            this.percentagaPerLetter.push(percentage_overall);
+
+                        }
+                        else if(this.mode== "middleLetter"){
+                            var middle= parseInt(min_letters.length/2);
+                            if(p==middle){
+                                var letter_width= (n+min_letters[p]);
+
+                            }else{
+                                var letter_width= (min_letters[p]);
+
+                            }
+                            size.push(letter_width);
+
+
+                            var letter_limit= this.getLimit_byWidth(letter_width, min_letters[p],m2);
+                            var percentage_overall = letter_width/max_container;
+                            this.percentagaPerLetter.push(percentage_overall);
+
+                        }
+                        else if(this.mode== "chosenLetter"){
+                            var num_letters= this.chosenLetters.length;
+                            var increase_per_letter=n/num_letters;
+                            var letter_width= 0;
+                            for(var k=0; k<this.chosenLetters.length; k++){
+                                if(p+1==this.chosenLetters[k]){
+                                    var letter_width= (increase_per_letter+min_letters[p]);
+                                    break;
+                                }else{
+                                    var letter_width= (min_letters[p]);
+
+                                }
+                            }
+
+
+                            var letter_limit= this.getLimit_byWidth(letter_width, min_letters[p],m2);
+                            var percentage_overall = letter_width/max_container;
+                            this.percentagaPerLetter.push(percentage_overall);
+
+                        }
+
+                    }
+                    limit.push(letter_limit);
                     } //fechas for
 
-            }else{
-                var font= this.fontSize;
-                var min = min_width;
-                var newfont= max_container/min_width*font;
+                }else{
+                    var font= this.fontSize;
+                    var min = min_width;
+                    var newfont= max_container/min_width*font;
 
 
-                this.fontSize= newfont;
-                this.boxHeight= newfont;
-                var min_width =this.getMinWidth();
-                var max_width = f2.checkWords(this.textToRender, 0, this.boxHeight, newfont, this.options);
+                    this.fontSize= newfont;
+                    var min_width =this.getMinWidth();
+                    var max_width = f2.checkWords(this.textToRender, 0, this.boxHeight, newfont, this.options);
 
-                var min_letters= f1.checkWordsLetter(this.textToRender, 0, this.boxHeight, newfont, this.options);
-                var max_letters= f2.checkWordsLetter(this.textToRender, 0, this.boxHeight, newfont, this.options);
-                var glyphs= this.font1.stringToGlyphs(this.textToRender);
+                    var min_letters= f1.checkWordsLetter(this.textToRender, 0, this.boxHeight, newfont, this.options);
+                    var max_letters= f2.checkWordsLetter(this.textToRender, 0, this.boxHeight, newfont, this.options);
+                    var glyphs= this.font1.stringToGlyphs(this.textToRender);
 
-                for (var p=0; p<min_letters.length; p++) {
-                    var m2= max_letters[p]-min_letters[p];
-                    var n= max_container-min_width;
+                    for (var p=0; p<min_letters.length; p++) {
+                        var m2= max_letters[p]-min_letters[p];
+                        var n= max_container-min_width;
                     // se masters forem igual
                     if(m2==0){
                         letter_limit=0;
@@ -1075,9 +1097,9 @@ StretchIt.prototype.getLimit= function(){
 
                     }else{
                         if(this.mode== "random"){
-                           var variable_random=1-(min_letters.length/100)*1.5;
+                         var variable_random=1-(min_letters.length/100)*1.5;
 
-                           if(p==min_letters.length-1){
+                         if(p==min_letters.length-1){
                             var s=n;
                         }else{
                             if(glyphs[p].name=="space"){
@@ -1275,7 +1297,7 @@ StretchIt.prototype.getLimit= function(){
                     limit= this.getLimit_byWidth(letter_width, min_letters[h],m);
 
                 }else{
-                limit= 0;
+                    limit= 0;
 
                 }
                 //console.log("letter_width       "+letter_width);
@@ -1285,9 +1307,10 @@ StretchIt.prototype.getLimit= function(){
 
 
 
-                this.limit[h]= limit;                
 
                 
+
+                this.limit[h]= limit;
                 allletters_width+=letter_width;
 
 
@@ -1308,8 +1331,6 @@ StretchIt.prototype.getLimit= function(){
                 var min = min_width;
                 var newfont= (new_max/min_width)*font;
                 this.fontSize= newfont;
-                this.boxHeight= newfont;
-
             }
 
         }
@@ -1326,7 +1347,6 @@ StretchIt.prototype.getLimit= function(){
         var min = min_width;
         var newfont= (max_container/min_width)*font;
         this.fontSize= newfont;
-        this.boxHeight= newfont;
 
     }else{
         findlimit=1;
@@ -1339,20 +1359,20 @@ StretchIt.prototype.getLimit= function(){
 };
 
 //calculation, for given Width get Limit
-StretchIt.prototype.getLimit_byWidth= function(width, min_width, m){
- var result= (width-min_width)/m;
- return result;
+SuiType.prototype.getLimit_byWidth= function(width, min_width, m){
+   var result= (width-min_width)/m;
+   return result;
 
 };
 //calculation, for given Limit get Width
-StretchIt.prototype.getWith_byLimit= function(min_width,  limit,m){
- var result= (m*limit)+min_width;
- return result;
+SuiType.prototype.getWith_byLimit= function(min_width,  limit,m){
+   var result= (m*limit)+min_width;
+   return result;
 
 };
 
 //Get array width all glyphs width, given limit
-StretchIt.prototype.getAllGlyphWidth= function(array_limit, array_minwidth, array_maxwidth){
+SuiType.prototype.getAllGlyphWidth= function(array_limit, array_minwidth, array_maxwidth){
     var group_limits= array_limit;
     var group_min= array_minwidth;
     var group_max= array_maxwidth;
@@ -1367,7 +1387,7 @@ StretchIt.prototype.getAllGlyphWidth= function(array_limit, array_minwidth, arra
 
 };
 //Get sum of all glyphs widths, with its margins.
-StretchIt.prototype.getSumGlyphsWithMargin= function(array_min){
+SuiType.prototype.getSumGlyphsWithMargin= function(array_min){
     var glyphs= this.font1.stringToGlyphs(this.textToRender);
 
     var min= array_min;
@@ -1376,7 +1396,6 @@ StretchIt.prototype.getSumGlyphsWithMargin= function(array_min){
     var metrics_leftSideBearing=0;
     var convert_rightSideBearing=0;
     var convert_leftSideBearing=0;
-    console.log("min");
     for(var i=0; i<array_min.length; i++){
         metrics_rightSideBearing = glyphs[i].getMetrics().rightSideBearing;
         convert_rightSideBearing = this.convertMeasure(metrics_rightSideBearing);
@@ -1392,7 +1411,7 @@ StretchIt.prototype.getSumGlyphsWithMargin= function(array_min){
 };
 
 //Get sum of all glyphs widths, with its margins.
-StretchIt.prototype.getSumGlyphsWithoutMargin= function(array_min){
+SuiType.prototype.getSumGlyphsWithoutMargin= function(array_min){
     var glyphs= this.font1.stringToGlyphs(this.textToRender);
 
     var min= array_min;
@@ -1406,7 +1425,7 @@ StretchIt.prototype.getSumGlyphsWithoutMargin= function(array_min){
 };
 
 //Get array width all glyphs widths, with its margins.
-StretchIt.prototype.getSumGlyphsWithMarginArray= function(array_min){
+SuiType.prototype.getSumGlyphsWithMarginArray= function(array_min){
     var glyphs= this.font1.stringToGlyphs(this.textToRender);
     var min= array_min;
     var total=new Array();
@@ -1429,7 +1448,7 @@ StretchIt.prototype.getSumGlyphsWithMarginArray= function(array_min){
 };
 
 //Get array width all glyphs widths, removing its margins.
-StretchIt.prototype.getGlyphsWithoutMarginArray= function(array_min){
+SuiType.prototype.getGlyphsWithoutMarginArray= function(array_min){
     var glyphs= this.font1.stringToGlyphs(this.textToRender);
     var min= array_min;
     var total=new Array();
@@ -1451,7 +1470,7 @@ StretchIt.prototype.getGlyphsWithoutMarginArray= function(array_min){
 
 };
 //Get sum of all glyphs widths, removing its margins.
-StretchIt.prototype.getGlyphsWithoutMarginArraySum= function(array_min){
+SuiType.prototype.getGlyphsWithoutMarginArraySum= function(array_min){
     var glyphs= this.font1.stringToGlyphs(this.textToRender);
     var total=array_min;
     var metrics_rightSideBearing=0;
@@ -1473,7 +1492,7 @@ StretchIt.prototype.getGlyphsWithoutMarginArraySum= function(array_min){
 };
 
 //Get specific glyphs width, with its margins.
-StretchIt.prototype.getGlyphWithMargin= function( width, x){
+SuiType.prototype.getGlyphWithMargin= function( width, x){
     var glyphs= this.font1.stringToGlyphs(this.textToRender);
     var i= parseInt(x);
     var total=0;
@@ -1492,7 +1511,7 @@ StretchIt.prototype.getGlyphWithMargin= function( width, x){
 
 };
 //Get specific glyphs width, removing its margins.
-StretchIt.prototype.getGlyphWith_withoutMargin= function( width, i){
+SuiType.prototype.getGlyphWith_withoutMargin= function( width, i){
     var glyphs= this.font1.stringToGlyphs(this.textToRender);
     var total=0;
     var metrics_rightSideBearing = glyphs[i].getMetrics().rightSideBearing;
@@ -1511,7 +1530,7 @@ StretchIt.prototype.getGlyphWith_withoutMargin= function( width, i){
 
 };
 //Convert any measure from font file, to size when drawing on canvas.
-StretchIt.prototype.convertMeasure= function(measure){
+SuiType.prototype.convertMeasure= function(measure){
     var unitsPerEm= this.options.unitsPerEm || 1000;
     var scale = 1 / unitsPerEm * this.fontSize;
     var newmeasure= measure*scale;
@@ -1521,7 +1540,7 @@ StretchIt.prototype.convertMeasure= function(measure){
 
 //Calculation needed when window resized on mode random, firstlettes,etc. 
 //When some letter letters reach its limit, other need to compensate so the word will always fit the size of container.
-StretchIt.prototype.widthOverload= function(container_w, min_l, max_l){
+SuiType.prototype.widthOverload= function(container_w, min_l, max_l){
     var container_width= container_w;
     var min_letters= min_l;
     var max_letters= max_l;
