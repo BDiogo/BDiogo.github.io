@@ -20,9 +20,6 @@ Was adapted the typeface Reglo by Sebastien Sanfilippo. More about this font can
 ![](http://content.altfonts.com:88/img/R/E/Reglo-Bold.png)
 
 
-# How it works
-## Master
-## Limit
 # Getting Started
 ### 1. Include JQuery,Opentype.js and SuiType.js
     <script type="text/javascript" src="PATH_TO/jquery.min.js"></script> 
