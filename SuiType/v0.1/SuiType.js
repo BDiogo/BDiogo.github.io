@@ -219,6 +219,7 @@ SuiType.prototype.changeCanvasWidthDraw= function(measure){
     }else{
         var width= measure;
     }
+    this.canvasWidth=measure;
     canva.attr("width",width);
     this.getLimit();
     this.interpolate();
