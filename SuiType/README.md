@@ -45,7 +45,7 @@ Was adapted the typeface Reglo by Sebastien Sanfilippo. More about this font can
     font.runSuiTypet();
     
     
-### 5 Make it Responsive when window resized.  (optional).   
+### 5. Make it Responsive when window resized(optional).   
     $( window ).resize(function() {   
         font.changeCanvasWidthSetup();
         font.windowResized();
