@@ -7,6 +7,7 @@ This script uses the jQuery and [opentype.js](http://opentype.js.org/), witch al
 
 <img src="https://BDiogo.github.io/SuiType/img/image2.png" alt="alt text" width="350" >
 
+The website can be found [here](https://student.dei.uc.pt/~bdiogo/SuiType/).
 # Compatible Fonts
 For the development of this project, was needed a typeface that would suffer the stretch by the script.
 
@@ -44,7 +45,12 @@ Was adapted the typeface Reglo by Sebastien Sanfilippo. More about this font can
     font.runSuiTypet();
     
     
-    
+### 5. Make it Responsive when window resized(optional).   
+    $( window ).resize(function() {   
+        font.changeCanvasWidthSetup();
+        font.windowResized();
+
+    });
 
 # Options
 | Option          | Default             | Type      | Description                                                          |
