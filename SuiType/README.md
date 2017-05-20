@@ -82,6 +82,14 @@ Gives the diference between the container width as the minimum word string, givi
 #### `SuiType.getStart()`
 #### `SuiType.getLimit()`
 Since the limit reffers to the percentage (from 0 to 1), of each master font to use. It can return a `number` or an `array`, depending on the mode (equal and deform return `number`, other `array`).
+#### `SuiType.getLoaded()`
+Returns e SuiType was completly loaded (0 for no, 1 for yes). Important when runing functions (like suiType.changeText()) on window loaded, since JavaScript is asynchronous it will run any function, even if all the information is not ready. It may be implemented like the folowing code: 
+
+            if(SuiType.getLoaded==1){
+                SuiType.changeText("new text");
+            }
+        
+
 
 ## Change
 #### `SuiType.changeCanvasWidth(width)`
@@ -95,6 +103,7 @@ Change letters selected for the mode `chosenLetter`.
 #### `SuiType.changeFontSizeDraw(fontsize)`
 Change font Size and draw on canvas.
 #### `SuiType.changeCanvasWidthSetup()`
+
 
 
 ## Other
