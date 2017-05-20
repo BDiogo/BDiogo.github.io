@@ -88,7 +88,7 @@ Returns e SuiType was completly loaded (0 for no, 1 for yes). Important when run
             if(SuiType.getLoaded==1){
                 SuiType.changeText("new text");
             }
-        
+For button events, this function will not be necessary.
 
 
 ## Change
