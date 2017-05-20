@@ -59,6 +59,7 @@ function SuiType(e){
     this.error=[];
     this.percentagaPerLetter=[];
     this.animateValue=0;
+    this.loaded=0;
     e = e || {};
     if (!e.empty) {
         if(e.color===undefined){
@@ -312,7 +313,6 @@ SuiType.prototype.animate= function(increase, a, animation){
 
         this.changeCanvasWidth(percentage_min);
         this.windowResized();    
-        var new_width= min_width+x;
         //console.log("increase   "+this.animateValue);
         //console.log("min_width   "+min_width);
         //console.log("max_container   "+max_container);
@@ -362,7 +362,10 @@ SuiType.prototype.setWithMin= function(){
 
 //Snap paths to mode deform
 SuiType.prototype.getMinWidth= function() {
-    var min_width = this.font1.checkWords(this.textToRender, 0, this.boxHeight, this.fontSize, this.options);
+     var min_width = 0;
+
+        min_width = this.font1.checkWords(this.textToRender, 0, this.boxHeight, this.fontSize, this.options);
+    
     return min_width;
 
 
@@ -758,12 +761,16 @@ SuiType.prototype.interpolate= function(){
         snapPath_master1.draw(this.snapCtx);
 
     }
+    this.loaded=1;
 
 
 
 
 
 };
+SuiType.prototype.getLoaded= function(){
+    return this.loaded;
+}
 
 //DIVIDE string to array of strings, where each fill window width
 SuiType.prototype.dividString= function(string){
@@ -1419,7 +1426,6 @@ SuiType.prototype.getSumGlyphsWithMargin= function(array_min){
         metrics_leftSideBearing = glyphs[i].getMetrics().leftSideBearing;
         convert_leftSideBearing = this.convertMeasure(metrics_leftSideBearing);
     }
-    console.log("TOTAL     "+total);
     return total;
 
 
