@@ -1,13 +1,13 @@
-# SuiType.js
-SuiType is a script that allows any font width, to respond to the window size. For this, it needs TWO fonts to make de stretch possible, since each master indicates de minimum and maximum width the font can take. 
-SuiType is a project thought inside the master degree in Multimedia and Design, of University of Coimbra.
+# AdapType.js
+AdapType is a script that allows any font width, to respond to the window size. For this, it needs TWO fonts to make de stretch possible, since each master indicates de minimum and maximum width the font can take. 
+AdapType is a project thought inside the master degree in Multimedia and Design, of University of Coimbra.
 
         
 This script uses the jQuery and [opentype.js](http://opentype.js.org/), witch allows to read a font data and change it. Some functions where added to opentype.js, so that its stretch is possible.
 
-<img src="https://BDiogo.github.io/SuiType/img/image2.png" alt="alt text" width="350" >
+<img src="https://BDiogo.github.io/AdapType/img/image2.png" alt="alt text" width="350" >
 
-The website can be found [here](https://student.dei.uc.pt/~bdiogo/SuiType/).
+The website can be found [here](https://student.dei.uc.pt/~bdiogo/AdapType/).
 # Compatible Fonts
 For the development of this project, was needed a typeface that would suffer the stretch by the script.
 
@@ -22,27 +22,27 @@ Was adapted the typeface Reglo by Sebastien Sanfilippo. More about this font can
 
 
 # Getting Started
-### 1. Include JQuery,Opentype.js and SuiType.js
+### 1. Include JQuery,Opentype.js and AdapType.js
     <script type="text/javascript" src="PATH_TO/jquery.min.js"></script> 
     <script type="text/javascript" src="PATH_TO/opentype_add.js"></script>
-    <script type="text/javascript" src="PATH_TO/SuiType.js"></script>
+    <script type="text/javascript" src="PATH_TO/AdapType.js"></script>
     
 
 ### 2. Create canvas
     <canvas id="canvas_id"><canvas>
 
 
-### 3. Initialize the SuiType, indicating font to stretch and place to draw.
+### 3. Initialize the AdapType, indicating font to stretch and place to draw.
 
-    var font= new SuiType({
+    var font= new AdapType({
           fonte1: 'fonts/Conc.ttf',  
           fonte2: 'fonts/nice2.ttf', 
-          textToRender: "SuiType", 
+          textToRender: "AdapType", 
           canvasID : "canvas_id" 
     });
           
-### 4. Run SuiType.
-    font.runSuiTypet();
+### 4. Run AdapType.
+    font.runAdapTypet();
     
     
 ### 5. Make it Responsive when window resized(optional).   
@@ -70,49 +70,49 @@ Was adapted the typeface Reglo by Sebastien Sanfilippo. More about this font can
 
 # Methods
 ## Get
-#### `SuiType.getFontSize()`
-#### `SuiType.getColor()`
-#### `SuiType.getMode()`
-#### `SuiType.getText()`
-#### `SuiType.getColor()`
-#### `SuiType.getMinWidth()`
+#### `AdapType.getFontSize()`
+#### `AdapType.getColor()`
+#### `AdapType.getMode()`
+#### `AdapType.getText()`
+#### `AdapType.getColor()`
+#### `AdapType.getMinWidth()`
 Since the font as a minimum width, so all the word. This function returns the minimum width it needs to fill de windows, given a text to render and a font size.
-#### `SuiType.getTotalIncrease()`
+#### `AdapType.getTotalIncrease()`
 Gives the diference between the container width as the minimum word string, giving to total increase the font needs to suffer.
-#### `SuiType.getStart()`
-#### `SuiType.getLimit()`
+#### `AdapType.getStart()`
+#### `AdapType.getLimit()`
 Since the limit reffers to the percentage (from 0 to 1), of each master font to use. It can return a `number` or an `array`, depending on the mode (equal and deform return `number`, other `array`).
 
 ## Change
-#### `SuiType.changeCanvasWidth(width)`
+#### `AdapType.changeCanvasWidth(width)`
 Change canvas width to the width specified, when the text doesn't  fit the canvas, will automatically decrease its font size.
-#### `SuiType.changeText(text)`
+#### `AdapType.changeText(text)`
 Change Text to Render, recalculate widths to each letters and show it on the canvas.
-#### `SuiType.changeColor(text)`
-#### `SuiType.changeLetterSelected(array)`
+#### `AdapType.changeColor(text)`
+#### `AdapType.changeLetterSelected(array)`
 Change letters selected for the mode `chosenLetter`.
-#### `SuiType.changeMode(mode)`
-#### `SuiType.changeFontSizeDraw(fontsize)`
+#### `AdapType.changeMode(mode)`
+#### `AdapType.changeFontSizeDraw(fontsize)`
 Change font Size and draw on canvas.
-#### `SuiType.changeCanvasWidthSetup()`
+#### `AdapType.changeCanvasWidthSetup()`
 
 
 ## Other
-#### `SuiType.runSuiType()`
-Inicializing SuiType.
-#### `SuiType.windowResized()`
+#### `AdapType.runAdapType()`
+Inicializing AdapType.
+#### `AdapType.windowResized()`
 Recalculates widths to each letters, according to new size of window and show it on the canvas.
-#### `SuiType.reRandom()`
+#### `AdapType.reRandom()`
 Makes a new random for letters, changing its widths. If mode isn't `random` will change it.
-#### `SuiType.animate(velocity, TimeoutVariable, "decrease" or "increase")`
+#### `AdapType.animate(velocity, TimeoutVariable, "decrease" or "increase")`
 This function was created purposely for animate de font width. The `velocity`variable indicates how fast the width will descrease or increase. Once the word reaches its maximum, when `increase` and minimum when `decrease` will crear the timeout  specified. Example:
 
             var timeout= setInterval(function() {
-                SuiType.animate(10, timeout , "increase");
+                AdapType.animate(10, timeout , "increase");
             },30);
         
 
-#### `SuiType.interpolate()`
+#### `AdapType.interpolate()`
 Draws in canvas, given widths for each letter.
 
 
