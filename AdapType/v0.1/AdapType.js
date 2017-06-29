@@ -24,7 +24,7 @@ function AdapType(e){
     this.max ={};
     this.min ={};
     this.d={};
-    this.a= -5;
+    this.a= -10;
 
     this.options;
     this.kerning = true;
