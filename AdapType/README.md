@@ -7,7 +7,7 @@ This script uses the jQuery and [opentype.js](http://opentype.js.org/), witch al
 
 <img src="https://BDiogo.github.io/AdapType/img/image2.png" alt="alt text" width="350" >
 
-The website can be found [here](https://student.dei.uc.pt/~bdiogo/AdapType/).
+The website can be found [here](http://adaptype.com/).
 # Compatible Fonts
 For the development of this project, was needed a typeface that would suffer the stretch by the script.
 
@@ -35,11 +35,10 @@ Was adapted the typeface Reglo by Sebastien Sanfilippo. More about this font can
 ### 3. Initialize the AdapType, indicating font to stretch and place to draw.
 
     var font= new AdapType({
-          fonte1: 'fonts/Conc.ttf',  
-          fonte2: 'fonts/nice2.ttf', 
-          textToRender: "AdapType", 
-          canvasID : "canvas_id" 
-    });
+        fonts:[{"font1":"PATH_FONT_REGULAR", "font2":"PATH_FONT_EXPANDED"}], 
+        textToRender: "PLACE_TEXT_HERE", 
+        canvasID : "CANVAS_ID" 
+    )};  
           
 ### 4. Run AdapType.
     font.runAdapTypet();
@@ -64,8 +63,8 @@ Was adapted the typeface Reglo by Sebastien Sanfilippo. More about this font can
 | color     | `black`            | `string`            | Color to fill font.     |
 | stroke     | `transparent`            | `string`            | Indicates the stroke color. |
 | strokeWidth     | `0`            | `number`            | Indicates the stroke width. |
-| animateonEnter     | `false`            | `boolean`            | Animate font stretch, when window is loaded. |
 | start     | `max`            | `string`            | Where the stretch will start, with its `max` value or `min`. |
+| exponential NEW     | `true`            | `boolean`            |  Describes the line spacing is the vertical distance between lines of text.|
 
 
 # Methods
@@ -89,6 +88,15 @@ Returns e SuiType was completly loaded (0 for no, 1 for yes). Important when run
                 SuiType.changeText("new text");
             }
 For button events, this function will not be necessary.
+#### `AdapType.getExponential()` NEW
+#### `AdapType.getCanvasWidth()` NEW
+Returns the canvas width with chosen mode.
+#### `AdapType.getCanvasID()` 
+Returns the canvas id.
+#### `AdapType.getMinWidthPx()` NEW
+Returns the canvas width in pixels.
+#### `AdapType.getMinWidthPer()` NEW
+Returns the canvas width with in percentage.
 
 
 ## Change
@@ -103,7 +111,7 @@ Change letters selected for the mode `chosenLetter`.
 #### `AdapType.changeFontSizeDraw(fontsize)`
 Change font Size and draw on canvas.
 #### `AdapType.changeCanvasWidthSetup()`
-
+#### `AdapType.changeExponential(boolean) NEW`
 
 
 ## Other
@@ -113,13 +121,14 @@ Inicializing AdapType.
 Recalculates widths to each letters, according to new size of window and show it on the canvas.
 #### `AdapType.reRandom()`
 Makes a new random for letters, changing its widths. If mode isn't `random` will change it.
-#### `AdapType.animate(velocity, TimeoutVariable, "decrease" or "increase")`
-This function was created purposely for animate de font width. The `velocity`variable indicates how fast the width will descrease or increase. Once the word reaches its maximum, when `increase` and minimum when `decrease` will crear the timeout  specified. Example:
-
-            var timeout= setInterval(function() {
-                AdapType.animate(10, timeout , "increase");
-            },30);
+#### `AdapType.animateFromTo(VEL,TO, ANIMATING_MODE)` UPDATED
+Animates current width to new width. When decreasing width prevents from going beyond min width of the font, established by Font 1.
+            //VEL – velocity of animation
+            //TO – width to animate (ex: 100);
+            //ANIMATING_MODE – mode of animation (“easeIn”, “easeOut”, “easeInOut” and “linear”)
         
+
+
 
 #### `AdapType.interpolate()`
 Draws in canvas, given widths for each letter.
@@ -130,7 +139,8 @@ Draws in canvas, given widths for each letter.
 
 Planned
 =======
+- [ ] Make it work without a canvas. NEW
 - [ ] Adapt to long strings, and break line.
-- [ ] Perfect animation.
 - [ ] Create version to along font height.
-- [ ] More fonts already adapted to be used in script.
+- [x] Perfect animation.
+- [x] More fonts already adapted to be used in script.
