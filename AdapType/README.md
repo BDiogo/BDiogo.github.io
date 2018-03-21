@@ -41,7 +41,7 @@ Was adapted the typeface Reglo by Sebastien Sanfilippo. More about this font can
     )};  
           
 ### 4. Run AdapType.
-    font.runAdapTypet();
+    font.runAdapType();
     
     
 ### 5. Make it Responsive when window resized(optional).   
