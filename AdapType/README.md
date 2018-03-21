@@ -81,11 +81,11 @@ Gives the diference between the container width as the minimum word string, givi
 #### `AdapType.getStart()`
 #### `AdapType.getLimit()`
 Since the limit reffers to the percentage (from 0 to 1), of each master font to use. It can return a `number` or an `array`, depending on the mode (equal and deform return `number`, other `array`).
-#### `SuiType.getLoaded()`
-Returns e SuiType was completly loaded (0 for no, 1 for yes). Important when runing functions (like suiType.changeText()) on window loaded, since JavaScript is asynchronous it will run any function, even if all the information is not ready (usually return error: <b>this.font1.checkWords is not a function </b>). It may be implemented like the folowing code: 
+#### `AdapType.getLoaded()`
+Returns e AdapType was completly loaded (0 for no, 1 for yes). Important when runing functions (like AdapType.changeText()) on window loaded, since JavaScript is asynchronous it will run any function, even if all the information is not ready (usually return error: <b>this.font1.checkWords is not a function </b>). It may be implemented like the folowing code: 
 
-            if(SuiType.getLoaded==1){
-                SuiType.changeText("new text");
+            if(AdapType.getLoaded==1){
+                AdapType.changeText("new text");
             }
 For button events, this function will not be necessary.
 #### `AdapType.getExponential()` NEW
